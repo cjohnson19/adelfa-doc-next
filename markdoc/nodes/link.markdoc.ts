@@ -1,7 +1,7 @@
-import Link from "next/link";
+import { MarkdownLink } from "@/components/ui/typography";
 
 export const link = {
-  render: Link,
+  render: MarkdownLink,
   attributes: {
     href: {
       type: String,

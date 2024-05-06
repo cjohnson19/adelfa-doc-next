@@ -9,6 +9,7 @@ export abstract class Constants {
     { href: "/download", label: "Download" },
     { href: "/reference-guide", label: "Reference Guide" },
     { href: "/examples", label: "Examples" },
+    { href: "/walkthrough", label: "Walkthrough" },
   ];
 
   static readonly githubLink = "https://github.com/adelfa-prover/adelfa";

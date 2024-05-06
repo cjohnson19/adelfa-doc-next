@@ -10,7 +10,7 @@ import SearchBar from "./search-bar";
 
 export default function Header() {
   return (
-    <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+    <header className="flex fixed z-50 w-full h-14 items-center gap-4 border-b bg-muted px-4 lg:h-[60px] lg:px-6">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
@@ -31,14 +31,14 @@ export default function Header() {
           </nav>
         </SheetContent>
       </Sheet>
-      <ModeToggle />
-      <div className="w-full flex-1">
-        <SearchBar />
-      </div>
       <Link href={Constants.githubLink} target="_blank">
         <Github className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all" />
         <span className="sr-only">View on Github</span>
       </Link>
+      <ModeToggle />
+      <div className="flex-1">
+        <SearchBar />
+      </div>
     </header>
   );
 }

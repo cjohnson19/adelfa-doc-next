@@ -19,7 +19,7 @@ export default function SheetLinks() {
               { "bg-muted text-foreground": pathname === link.href },
             )}
           >
-            <p>{link.label}</p>
+            {link.label}
           </Link>
         );
       })}

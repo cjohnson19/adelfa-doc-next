@@ -1,18 +1,19 @@
 import React, { forwardRef } from "react";
 import { cn } from "../../lib/utils";
+import Link from "next/link";
 
-export const MarkdownHeader = ({ level, children }: any) => {
+export const MarkdownHeader = ({ level, children, ...rest }: any) => {
   switch (level) {
     case 1:
-      return <H1>{children}</H1>;
+      return <H1 {...rest}>{children}</H1>;
     case 2:
-      return <H2>{children}</H2>;
+      return <H2 {...rest}>{children}</H2>;
     case 3:
-      return <H3>{children}</H3>;
+      return <H3 {...rest}>{children}</H3>;
     case 4:
-      return <H4>{children}</H4>;
+      return <H4 {...rest}>{children}</H4>;
     default:
-      return <H4>{children}</H4>;
+      return <H4 {...rest}>{children}</H4>;
   }
 };
 
@@ -276,38 +277,57 @@ const Quote = forwardRef<
 Quote.displayName = "Quote";
 export { Quote };
 
-const Table = forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
+const MarkdownLink = forwardRef<
+  HTMLAnchorElement,
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
 >((props, ref) => {
   return (
-    <table
+    <Link
       {...props}
       ref={ref}
-      className={cn("w-full border-collapse table-auto", props.className)}
+      href={props.href!}
+      className={cn("text-primary underline underline-offset-4", props.className)}
     >
       {props.children}
-    </table>
+    </Link>
   );
 });
 
-Table.displayName = "Table";
-export { Table };
+MarkdownLink.displayName = "MarkdownLink";
+export { MarkdownLink };
 
-const Tr = forwardRef<
-  HTMLTableRowElement,
-  React.HTMLAttributes<HTMLTableRowElement>
->((props, ref) => {
-  return (
-    <tr
-      {...props}
-      ref={ref}
-      className={cn("m-0 border-t p-0 even:bg-muted", props.className)}
-    >
-      {props.children}
-    </tr>
-  );
-});
+// const Table = forwardRef<
+//   HTMLTableElement,
+//   React.HTMLAttributes<HTMLTableElement>
+// >((props, ref) => {
+//   return (
+//     <table
+//       {...props}
+//       ref={ref}
+//       className={cn("w-full border-collapse table-auto", props.className)}
+//     >
+//       {props.children}
+//     </table>
+//   );
+// });
 
-Tr.displayName = "Tr";
-export { Tr };
+// Table.displayName = "Table";
+// export { Table };
+
+// const Tr = forwardRef<
+//   HTMLTableRowElement,
+//   React.HTMLAttributes<HTMLTableRowElement>
+// >((props, ref) => {
+//   return (
+//     <tr
+//       {...props}
+//       ref={ref}
+//       className={cn("m-0 border-t p-0 even:bg-muted", props.className)}
+//     >
+//       {props.children}
+//     </tr>
+//   );
+// });
+
+// Tr.displayName = "Tr";
+// export { Tr };

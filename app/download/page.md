@@ -5,17 +5,15 @@ description: How to download Adelfa
 
 # Download
 
-The recommended way for installing [Adelfa](/) is through OPAM.
+The recommended way for installing Adelfa is through OPAM.
 
 ```bash
-echo "Hello world"
+opam install adelfa
 ```
 
-And you can use emacs lisp:
+Alternatively, you can download the code from source 
 
-```lisp
-(+ '(1 2 3))
-```
+
 
 # Proof General
 

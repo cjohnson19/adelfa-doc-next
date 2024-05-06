@@ -15,7 +15,7 @@ export default function NavLinks() {
             key={link.label}
             href={link.href}
             className={clsx(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
+              "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
               { "bg-muted text-primary": pathname === link.href },
             )}
           >

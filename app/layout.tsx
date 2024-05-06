@@ -40,7 +40,7 @@ export default function RootLayout({
             </div>
             <div className="flex flex-col">
               <Header />
-              <main className="flex flex-1 items-center flex-col gap-4 p-8 lg:gap-6 lg:p-6">
+              <main className="mt-8 flex flex-1 items-center flex-col gap-4 p-8 lg:gap-6 lg:p-6">
                 <div className="max-w-4xl flex-col gap-4 lg:gap-6 lg:p-6">
                   {children}
                 </div>
