@@ -10,7 +10,7 @@ import SearchBar from "./search-bar";
 
 export default function Header() {
   return (
-    <header className="flex fixed z-50 w-full h-14 items-center gap-4 border-b bg-muted px-4 lg:h-[60px] lg:px-6">
+    <header data-pagefind-ignore className="flex fixed z-50 w-full h-14 items-center gap-4 border-b bg-muted px-4 lg:h-[60px] lg:px-6">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">

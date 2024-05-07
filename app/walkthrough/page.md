@@ -57,7 +57,7 @@ We state subject reduction in Adelfa by:
 
 ```adelfa
 >> Theorem sr_eval : forall E V T D1 D2,
-                   {D1 : eval E V} => {D2 : of E T} => exists D, {D : of V T}.
+    {D1 : eval E V} => {D2 : of E T} => exists D, {D : of V T}.
 
 Subgoal sr_eval:
 
@@ -145,7 +145,7 @@ We now perform case analysis on the second hypothesis, `{D2 : of (app M N) T}`,
 to obtain derivations for the typing of both subterms `M` and `N`. 
 
 ```adelfa
-sr_eval.1>> case H2.
+sr_eval.1 >> case H2.
 
 Subgoal sr_eval.1:
 
@@ -180,7 +180,7 @@ We are now able to apply the inductive hypothesis with the assumptions `H8` and
 
 
 ```adelfa
-sr_eval.1>> apply IH to H8 H14.
+sr_eval.1 >> apply IH to H8 H14.
 
 Subgoal sr_eval.1:
 
@@ -215,7 +215,7 @@ Subgoal sr_eval.2 is:
 We can now analyze the new assumption to obtain a typing judgement for `R`. 
 
 ```adelfa
-sr_eval.1>> case H16.
+sr_eval.1 >> case H16.
 
 Subgoal sr_eval.1:
 
@@ -255,7 +255,7 @@ instantiated by any particular terms of the appropriate type. In this instance,
 we want to replace `n2` with `N` and `n3` with `D5`. 
 
 ```
-sr_eval.1>> inst H20 with n2 = N.
+sr_eval.1 >> inst H20 with n2 = N.
 
 Subgoal sr_eval.1:
 
@@ -292,7 +292,7 @@ Subgoal sr_eval.2 is:
 ```
 
 ```adelfa
-sr_eval.1>> inst H21 with n3 = D5.
+sr_eval.1 >> inst H21 with n3 = D5.
 
 Subgoal sr_eval.1:
 
@@ -333,7 +333,7 @@ We are now able to apply the inductive hypothesis with `(R N)` to obtain a
 typing derivation for `V`. 
 
 ```
-sr_eval.1>> apply IH to H9 H22.
+sr_eval.1 >> apply IH to H9 H22.
 
 Subgoal sr_eval.1:
 
@@ -375,7 +375,7 @@ We now instantiate `D` in the goal formula with the term `(D n3 n2 n1 n)` for
 which we now have an appropriate typing derivation in the premises. 
 
 ```
-sr_eval.1>> exists (D n3 n2 n1 n).
+sr_eval.1 >> exists (D n3 n2 n1 n).
 
 Subgoal sr_eval.1:
 
@@ -418,7 +418,7 @@ the identical assumption formula `H23`. This completes the subgoal, and Adelfa
 moves to the next subgoal. 
 
 ```
-sr_eval.1>> search.
+sr_eval.1 >> search.
 
 Subgoal sr_eval.2:
 
@@ -442,7 +442,7 @@ assumption formula. An application of the
 [`search`](/reference-guide#tactic-search) tactic will complete the proof. 
 
 ```
-sr_eval.2>> exists D2.
+sr_eval.2 >> exists D2.
 
 Subgoal sr_eval.2:
 
@@ -460,6 +460,6 @@ H4:{T1 : ty}*
 ```
 
 ```
-sr_eval.2>> search.
+sr_eval.2 >> search.
 Proof Completed!
 ```

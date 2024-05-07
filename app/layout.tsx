@@ -35,13 +35,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-            <div className="hidden md:block">
+            <div data-pagefind-ignore className="hidden md:block">
               <SideNav />
             </div>
             <div className="flex flex-col min-w-0 w-full">
               <Header />
               <main className="mt-8 flex flex-1 items-center flex-col gap-4 p-8 lg:gap-6 lg:p-6">
-                <div className="flex w-full md:max-w-l lg:max-w-2xl flex-col gap-4 lg:gap-6 lg:p-6">
+                <div className="flex w-full md:max-w-l lg:max-w-3xl flex-col gap-4 lg:gap-6 lg:p-6">
                   {children}
                 </div>
               </main>

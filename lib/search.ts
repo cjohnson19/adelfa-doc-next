@@ -3,6 +3,7 @@ declare global {
     pagefind: {
       debouncedSearch: (query: string) => Promise<{ results: any[] }>;
       options: (x: Record<string, unknown>) => void;
+      preload: (query: string) => void;
     };
   }
 }
@@ -56,10 +57,15 @@ interface PagefindSubEntry {
 function pagefindResultUrl(res: PagefindEntry | PagefindSubEntry) {
   const path = res.url.match(/\/([^/]+)\.html(#.*)?$/);
   if (!path) {
-    return "";
+    console.log(path);
+    return "/";
   }
-  const basePath = path.length > 1 ? path[1] : "";
+  let basePath = path.length > 1 ? path[1] : "";
   const anchor = path.length > 2 ? path[2] : "";
+  if (!basePath) {
+    basePath = "/";
+  }
+  console.log(basePath);
   return basePath + (anchor ?? "");
 }
 
@@ -79,16 +85,16 @@ async function resultToEntries(
 }
 
 function flattenEntries(entries: PagefindEntry[]): PagefindSubEntry[] {
-  return entries
-    .flatMap((entry) => entry.sub_results);
-    // .sort(
-    //   (a, b) =>
-    //     (b.weighted_locations?.map((x) => x.balanced_score).max() ?? 0) -
-    //     (a.weighted_locations?.map((x) => x.balanced_score).max() ?? 0),
-    // );
+  return entries.flatMap((entry) => entry.sub_results);
 }
 
-export { pagefindResultUrl, resultToEntries, flattenEntries };
+function filterErrors(entries: PagefindSubEntry[]) {
+  return entries.filter(
+    (entry) => !(entry.title.includes("404") || entry.title.includes("500")),
+  );
+}
+
+export { pagefindResultUrl, resultToEntries, flattenEntries, filterErrors };
 export type {
   PagefindResultSuspense,
   PagefindEntry,

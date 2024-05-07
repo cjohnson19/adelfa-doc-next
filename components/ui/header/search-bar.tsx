@@ -12,7 +12,6 @@ export default function SearchBar() {
     async function loadPagefind() {
       if (typeof window.pagefind === "undefined") {
         try {
-          console.log("loading pagefind");
           window.pagefind = await import(
             // @ts-expect-error pagefind.js generated after build
             /* webpackIgnore: true */ "./pagefind/pagefind.js"
@@ -21,10 +20,10 @@ export default function SearchBar() {
             excerptLength: 15,
           });
         } catch (e) {
-          console.log("mocking pagefind");
           window.pagefind = {
             debouncedSearch: async (a: string) => ({ results: [] }),
             options: (x: Record<string, unknown>) => {},
+            preload: (a: string) => {},
           };
         }
       }

@@ -8,7 +8,13 @@ import {
   CommandList,
 } from "../../command";
 import SearchResult from "./search-result";
-import { flattenEntries, PagefindEntry, resultToEntries } from "@/lib/search";
+import {
+  filterErrors,
+  flattenEntries,
+  PagefindEntry,
+  PagefindSubEntry,
+  resultToEntries,
+} from "@/lib/search";
 import { Separator } from "@radix-ui/react-separator";
 import { CommandSeparator } from "cmdk";
 
@@ -20,18 +26,22 @@ export default function SearchMenu({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [search, setSearch] = React.useState("");
-  const [results, setResults] = React.useState<PagefindEntry[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
+  const [results, setResults] = React.useState<PagefindSubEntry[]>([]);
+  const [loading, setLoading] = React.useState(false);
 
   async function handleSearch() {
     if (window.pagefind) {
-      const res = (await window.pagefind.debouncedSearch(search)) ?? {
-        results: [],
-      };
+      window.pagefind.preload(search);
+      const res = await window.pagefind.debouncedSearch(search);
+      if (!res) return;
+      setLoading(true);
       const entries = await resultToEntries(res.results);
-      console.log(entries);
-      setResults(entries);
+      const results = filterErrors(flattenEntries(entries));
+      setResults(results);
+      setLoading(false);
     } else {
-      console.error("pagefind is not loaded");
+      setError("Search is not available.");
     }
   }
 
@@ -55,14 +65,16 @@ export default function SearchMenu({
         placeholder="Type a command or search..."
       />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-
-        {flattenEntries(results).map((result) => (
-          <>
-            <SearchResult key={result.url} res={result} setOpened={setOpen} />
-            <CommandSeparator />
-          </>
-        ))}
+        {error || <CommandEmpty>No results found.</CommandEmpty>}
+        {error && <CommandEmpty>{error}</CommandEmpty>}
+        {loading && <CommandEmpty>Loading...</CommandEmpty>}
+        {!loading &&
+          results.map((result) => (
+            <>
+              <SearchResult key={result.url} res={result} setOpened={setOpen} />
+              <CommandSeparator />
+            </>
+          ))}
       </CommandList>
     </CommandDialog>
   );
