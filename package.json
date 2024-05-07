@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "pagefind --site .next --output-path .next/static/chunks/app/pagefind",
     "start": "next start",
     "lint": "next lint"
   },

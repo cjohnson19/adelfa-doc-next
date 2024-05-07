@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, Copy } from "lucide-react";
 import Prism from "prismjs";
 import "prismjs/components/prism-bash.min";
 import "prismjs/components/prism-lisp.min";
@@ -43,6 +44,8 @@ Prism.languages.adelfa = {
 };
 
 import * as React from "react";
+import { Button } from "./button";
+import copy from "copy-to-clipboard";
 
 export function CodeBlock({
   children,
@@ -52,6 +55,13 @@ export function CodeBlock({
   "data-language": string;
 }) {
   const ref = React.useRef<any>(null);
+  const [copied, setCopied] = React.useState(false);
+
+  function copyCode() {
+    setCopied(true);
+    copy(ref.current.innerText.trim());
+    setTimeout(() => setCopied(false), 2000);
+  }
 
   React.useEffect(() => {
     if (ref.current) Prism.highlightElement(ref.current, false);
@@ -64,6 +74,20 @@ export function CodeBlock({
       <pre ref={ref} className={`language-${language}`}>
         {children}
       </pre>
+      <div className="absolute top-1 right-1 bg-transparent text-sm p-0 m-0">
+        <Button
+          size="icon"
+          aria-label="Copy code"
+          className="p-0 m-0 h-7 w-7 text-white hover:bg-white/40 bg-transparent"
+          onClick={() => copyCode()}
+        >
+          {copied ? (
+            <Check className="h-5 w-5" />
+          ) : (
+            <Copy className="h-5 w-5" />
+          )}
+        </Button>
+      </div>
       <style jsx>
         {`
           .code {

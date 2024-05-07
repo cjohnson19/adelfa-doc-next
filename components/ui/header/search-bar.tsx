@@ -1,16 +1,40 @@
-'use client';
+"use client";
 
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import React from "react";
-import CommandMenu from "../command-menu";
+import SearchMenu from "../search/search-menu";
 
 export default function SearchBar() {
   const [open, setOpen] = React.useState(false);
 
+  React.useEffect(() => {
+    async function loadPagefind() {
+      if (typeof window.pagefind === "undefined") {
+        try {
+          console.log("loading pagefind");
+          window.pagefind = await import(
+            // @ts-expect-error pagefind.js generated after build
+            /* webpackIgnore: true */ "./pagefind/pagefind.js"
+          );
+          window.pagefind.options({
+            excerptLength: 15,
+          });
+        } catch (e) {
+          console.log("mocking pagefind");
+          window.pagefind = {
+            debouncedSearch: async (a: string) => ({ results: [] }),
+            options: (x: Record<string, unknown>) => {},
+          };
+        }
+      }
+    }
+    loadPagefind();
+  });
+
   return (
     <form>
-      <CommandMenu open={open} setOpen={setOpen} />
+      <SearchMenu open={open} setOpen={setOpen} />
       <div className="relative w-full md:w-2/3 lg:w-1/3">
         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input

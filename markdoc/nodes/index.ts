@@ -5,3 +5,4 @@ export * from "./list.markdoc";
 export * from "./hr.markdoc";
 export * from "./table.markdoc";
 export * from "./link.markdoc";
+export * from "./quote.markdoc";
