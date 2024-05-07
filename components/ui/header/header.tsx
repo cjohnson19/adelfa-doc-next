@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet";
+import {
+  SheetTrigger,
+  SheetContent,
+  Sheet,
+  SheetClose,
+} from "@/components/ui/sheet";
 import { Menu, Github } from "lucide-react";
 import AdelfaLogo from "../adelfa-logo";
 import Link from "next/link";
@@ -10,7 +15,10 @@ import SearchBar from "./search-bar";
 
 export default function Header() {
   return (
-    <header data-pagefind-ignore className="flex fixed z-50 w-full h-14 items-center gap-4 border-b bg-muted px-4 lg:h-[60px] lg:px-6">
+    <header
+      data-pagefind-ignore
+      className="flex fixed z-50 w-full h-14 items-center gap-4 border-b bg-muted px-4 lg:h-[60px] lg:px-6"
+    >
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
