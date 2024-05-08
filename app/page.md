@@ -36,7 +36,7 @@ paper entitled ["A logic for reasoning about LF
 specifications"](https://arxiv.org/abs/2107.00111).
 
 
-### Acknowledgments
+## Acknowledgments
 
 Work on Adelfa has been supported by the National Science Foundation under Grant
 No. CCF-1617771. Any opinions, findings, and conclusions or recommendations

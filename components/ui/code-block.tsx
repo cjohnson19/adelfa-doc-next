@@ -21,7 +21,7 @@ Prism.languages.adelfa = {
   variable: [{ pattern: /\b(?:H[1-9]+[0-9]*|IH[0-9]*)\b/ }],
   "class-name": [
     {
-      pattern: /(\b(?:Theorem|Schema|apply|Subgoal)\s+)[\w|-|.]+/,
+      pattern: /(\b(?:Theorem|Schema|apply|Subgoal)\s+)[\w|\-|.]+/,
       lookbehind: true,
     },
     /[\w|-|.0-9]+(?=\s*>>)/,
@@ -31,7 +31,7 @@ Prism.languages.adelfa = {
     pattern: /\b(?:Theorem|Specification|Set|Schema|Subgoal|Vars)\b/,
   },
   function: [
-    /\b(?:apply|forall|exists|case|inst|induction|intros|keep|left|right|search|split|on|to|with)\b/,
+    /\b(?:apply|forall|exists|case|inst|induction|intros|keep|left|right|search|split|on|to|with|assert)\b/,
     /(?:\\\/|\/\\|=>|,|:|=)/,
   ],
   number: /\b(?:[1-9]+[0-9]*)\b/,
