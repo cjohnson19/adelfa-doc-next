@@ -59,7 +59,7 @@ The syntax for formulas is the following:
 | `forall x y z ..., F`            | {%math formula="\\forall x\\ \\forall y\\ \\forall z \\ldots . F" /%} (Universal quantification)                         |
 | `exists x y z ..., F`            | {%math formula="\\exists x\\ \\exists y\\ \\exists z \\ldots . F" /%} (Existential quantification)                       |
 | `ctx Gamma1:C1 Gamma2:C2 ..., F` | {%math formula="\\Pi \\Gamma_1:\\mathcal{C_1}\\ \\Pi \\Gamma_2:\\mathcal{C_2}\\ \\ldots. F" /%} (Context quantification) |
-| `F1 => F2`                       | {%math formula="F_1 \\supset F_2" /%}                                                      (Implication)                 |
+| `F1 => F2`                       | {%math formula="F_1 \\supset F_2" /%} (Implication)                                                                      |
 | `F1 /\ F2`                       | {%math formula="F_1 \\land F_2"/%} (Conjunction)                                                                         |
 | `F1 \/ F2`                       | {%math formula="F_1 \\lor F_2"/%} (Disjunction)                                                                          |
 | `{ G \| - M : A }`               | Atomic formula                                                                                                           |
@@ -69,20 +69,20 @@ The syntax for formulas is the following:
 
 ## Top-level commands {% #top-level %}
 
-#### `Theorem <NAME> : <FORMULA>.`
+### `Theorem <NAME> : <FORMULA>.`
 
 Starts proof development with the given formula as the goal.
 
 
-#### `Quit.`
+### `Quit.`
 
 Exists from Adelfa.
 
-#### `Specification <QUOTED FILENAME>`
+### `Specification <QUOTED FILENAME>`
 
 Reads in the specification indicated by the given filename.
 
-#### `Schema <ID> := {w x ...}(y:A,z:B ...); ... .`
+### `Schema <ID> := {w x ...}(y:A,z:B ...); ... .`
 
 Defines a context schema associated with `<ID>`. For example:
 
@@ -91,7 +91,7 @@ Schema c := {T:o}(x: tm, d: of x T);
             (x:tm, t:tp, d: of x t).
 ```
 
-#### `Set <OPTION> <VALUE>.` {% #command-set %}
+### `Set <OPTION> <VALUE>.` {% #command-set %}
 
 Sets the value of options during proof development. It may be used at the top
 level or inside theorem construction. The options are currently:
@@ -103,7 +103,7 @@ level or inside theorem construction. The options are currently:
 
 ## Tactics {% #tactics %}
 
-#### `search [<NUM>].` {% #tactic-search %}
+### `search [<NUM>].` {% #tactic-search %}
 
 Search for a derivation of the current goal using matching with assumption
 formulas and decomposing judgments into subgoals using LF derivation rules. If a
@@ -111,27 +111,27 @@ formulas and decomposing judgments into subgoals using LF derivation rules. If a
 `<NUM>` is not provided, the [`search_depth`][search-depth] option is used. The
 [`search_depth`][search-depth] can be changed with the [`Set`][set] command. 
 
-#### `intros.`
+### `intros.` {% #tactics-intros %}
 
 Introduces variables and assumptions from a goal formula until it no longer has
 top-level universal quantification, context quantification, or implications. 
 
-#### `split.`.
+### `split.` {% #tactics-split %}
 
 Creates subgoals for each sub formula, `F1` and `F2` if the current goal is a
 conjunction `F1 /\ F2`.
 
-#### `left.`
+### `left.` {% #tactics-left %}
 
 Changes the goal to be the left side formula, `F1` if the current goal is a
 disjunction, `F1 \/ F2`.
 
-#### `right.`
+### `right.` {% #tactics-right %}
 
 Changes the goal to be the right side formula, `F2` if the current goal is a
 disjunction, `F1 \/ F2`.
 
-#### `assert <FORMULA> [<NUM>].`
+### `assert <FORMULA> [<NUM>].` {% #tactics-assert %}
 
 Changes the proof state to one which has the given formula as a goal; once
 derivation of this goal is complete returns to the previous proof state with the
@@ -141,7 +141,7 @@ is added to the proof state immediately. This option defaults to
 [`search_depth`][search-depth] when not provided and may be changed with the
 [`Set`][set] command. 
 
-#### `apply <NAME> to <HYP NAMES> [with <BINDINGS>].` {% #tactic-apply %}
+### `apply <NAME> to <HYP NAMES> [with <BINDINGS>].` {% #tactic-apply %}
 
 Applies a hypothesis of the form `ctx Gamma1:C1 ... Gammaj:Cj, forall X1 ... Xi,
 H1 => ... => Hk => F` to argument hypotheses which match `H1, ..., Hk`. The
@@ -156,7 +156,7 @@ apply plus-comm to H4.
 apply H2 to H5.
 ```
 
-#### `induction on <NUM>.`
+### `induction on <NUM>.` {% #tactics-induction %}
 
 Given a goal of the form `ctx Gamma1:C1 Gamma2:C2 ..., forall X Y ..., H1 => H2 => ... =>
 F` the induction tactic allows you to induct on one of `H1, H2, ...`. The
@@ -170,37 +170,37 @@ Adelfa supports nested induction through repeated calls to the induction tactic.
 See the [Inductive Restrictions][inductive-restrictions] section for more
 details. 
 
-#### `exists M.`
+### `exists M.` {% #tactics-exists %}
 
 Instantiates an existential goal with the given term, if it is of the correct
 arity type. 
 
-#### `case <HYP NAME>[(keep)].` {% #tactics-case %}
+### `case <HYP NAME>[(keep)].` {% #tactics-case %}
 
 Performs case analysis on the given assumption formula. By default, the
 assumption is removed, use `(keep)` to retain it. 
 
 
-#### `weaken <HYP NAME> with A [<NUM>].`
+### `weaken <HYP NAME> with A [<NUM>].`{% #tactics-weaken %}
 
 When the given assumption formula is of the form `{G |- M : A}`, and it can be
 verified that the LF type `A` must be well formed in the current context under
 `G`, then a new assumption is added in which the typing judgment is weakened to
 include the given type. 
 
-#### `strengthen <HYP NAME>.`
+### `strengthen <HYP NAME>.`{% #tactics-strengthen %}
 
 If the given assumption formula is of the form `{G, n:A1 |- M : A2}` if `n` does
 not appear in `M` or `A2` then a new assumption is added in which the typing
 judgment is strengthened to `{G |- M : A2}`. 
 
-#### `ctxpermute <HYP NAME> to G.`
+### `ctxpermute <HYP NAME> to G.`{% #tactics-ctxpermute %}
 
 If the given assumption is of the form `{G' |- M:A}`, and if the given context
 is a valid permutation of the context `G'` (i.e. does not violate dependencies),
 then a new assumption is added with the permuted context expression `G`. 
 
-#### `permute <HYP NAME> with <PERM>.`
+### `permute <HYP NAME> with <PERM>.`{% #tactics-permute %}
 
 Applies a permutation of nominal constants to the argument hypothesis. `<PERM>`
 must be a complete permutation. Mappings can be unidirections `n1 -> n2, n2 ->
@@ -208,14 +208,14 @@ n` or bidirectional `n1 <-> n2`.  If the provided permutation is complete and
 limited to be within the relevant assumption's restricted set, a new assumption
 is added with the permutation applied to it. 
 
-####  `inst <HYP NAME> with n = M.`
+###  `inst <HYP NAME> with n = M.`{% #tactics-inst %}
 
 If the given assumption formula is of the form `{G1,n:B,G2 |- M:A}`, and the
 term `M` can be determined to be such that `{G1 |- M : B}` is valid then this tactic
 replaces the given assumption with one in which `n:B` is removed from the context
 expression and all occurrences of `n` are replaced by `M`. 
 
-#### ` prune <HYP NAME>.`
+### `prune <HYP NAME>.`{% #tactics-prune %}
 
 If the given assumption is of the form `{G |- X n1 ... nm : A}` for some
 eigenvariable `X` and distinct nominal constants `n1,...,nm` then this tactic
@@ -224,27 +224,27 @@ will prune those nominal constants appearing as arguments to `X` which
 1. Do not already appear in `G` and 
 2. Are not permitted in the instantiations for the context variable in `G`.
 
-#### `undo.`
+### `undo.`{% #tactics-undo %}
 
 Undoes the last step of reasoning.
 
-#### `skip.`
+### `skip.`{% #tactics-skip %}
 
 Skip to the next subgoal of the derivation and completes the theorem if there
 are no more goals.
 
-#### `abort.`
+### `abort.`{% #tactics-abort %}
 
 Abort the proof construction and return to top-level loop without adding formula
 to the available lemmas. 
 
-#### `unfold. [<HYP NAME>]`
+### `unfold [<HYP NAME>].`{% #tactics-unfold %}
 
 If the given assumption formula is a defined predicate then it is unfolded using
 the relevant definition, using the first clause which matches. If no assumption
 formula is given, the goal formula is unfolded. 
 
-#### `applydfn <PROP> [to <HYP NAME>].`
+### `applydfn <PROP> [to <HYP NAME>].`{% #tactics-applydfn %}
 
 Applies a clause of the definition of <PROP> to the given assumption formula.
 The first clause which matches is the one used. If no assumption formula is
@@ -302,7 +302,7 @@ analysis on `{|- D1 : eval E V}@`. This will give us two subgoals, one which is
 trivial and the other which has hypotheses tagged with `*` and thus eligible for
 use with the inductive hypothesis. 
 
-## Emacs Support {% #proof-general %}
+## Emacs / Proof General Support {% #proof-general %}
 
 
 The distribution of Adelfa provides a [Proof General][pg] mode and syntax

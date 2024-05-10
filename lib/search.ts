@@ -85,7 +85,9 @@ async function resultToEntries(
 }
 
 function flattenEntries(entries: PagefindEntry[]): PagefindSubEntry[] {
-  return entries.flatMap((entry) => entry.sub_results).unique_by("url");
+  return entries
+    .flatMap((entry) => entry.sub_results)
+    .unique_by((x) => x.title);
 }
 
 function filterErrors(entries: PagefindSubEntry[]) {
