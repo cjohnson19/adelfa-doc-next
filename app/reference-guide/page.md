@@ -354,4 +354,5 @@ Where `path-to-pg` should be changed to the file path of your proof general inst
 [search-depth]: #command-search-depth
 [set]: #command-set
 [inductive-restrictions]: #inductive-restrictions
-[apply]: #tactic-apply[pg]: https://proofgeneral.github.io/
+[apply]: #tactic-apply
+[pg]: https://proofgeneral.github.io/
