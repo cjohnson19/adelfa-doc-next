@@ -57,7 +57,6 @@ interface PagefindSubEntry {
 function pagefindResultUrl(res: PagefindEntry | PagefindSubEntry) {
   const path = res.url.match(/\/([^/]+)\.html(#.*)?$/);
   if (!path) {
-    console.log(path);
     return "/";
   }
   let basePath = path.length > 1 ? path[1] : "";
@@ -65,7 +64,6 @@ function pagefindResultUrl(res: PagefindEntry | PagefindSubEntry) {
   if (!basePath) {
     basePath = "/";
   }
-  console.log(basePath);
   return basePath + (anchor ?? "");
 }
 

@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "markdoc/tags/math.markdocts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "markdoc/tags/math.markdocts", "lib/adelfa.js"],
   "exclude": ["node_modules"]
 }

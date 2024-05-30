@@ -1,0 +1,28 @@
+import { CodeBlock } from '@/components/ui/code-block';
+export const metadata = {
+  title: 'Download',
+  description: 'How to download Adelfa',
+};
+
+# {metadata.title}
+
+The recommended way for installing Adelfa is through OPAM.
+
+<CodeBlock language="bash">
+{`
+opam install adelfa
+`}
+</CodeBlock>
+
+Alternatively, you can download or clone the code from source [on
+Github](https://github.com/adelfa-prover/adelfa).
+
+<CodeBlock language="bash">
+{`
+git clone https://github.com/adelfa-prover/adelfa.git
+cd adelfa
+dune install
+`}
+</CodeBlock>
+
+You may also obtain the source code by downloading [this tarball](/dist/adelfa.tar).
