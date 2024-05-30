@@ -47,7 +47,7 @@ const H2 = forwardRef<
       {...props}
       ref={ref}
       className={cn(
-        "mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
+        "mt-0 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0",
         props.className,
       )}
     >
@@ -68,7 +68,7 @@ const H3 = forwardRef<
       {...props}
       ref={ref}
       className={cn(
-        "mt-8 scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0",
+        "mt-0 scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0",
         props.className,
       )}
     >
@@ -89,7 +89,7 @@ const H4 = forwardRef<
       {...props}
       ref={ref}
       className={cn(
-        "mt-4 scroll-m-20 text-xl font-semibold tracking-tight first:mt-0",
+        "mt-0 scroll-m-20 text-xl font-semibold tracking-tight first:mt-0",
         props.className,
       )}
     >
@@ -124,11 +124,7 @@ const P = forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >((props, ref) => {
   return (
-    <p
-      {...props}
-      ref={ref}
-      className={cn("leading-7 [&:not(:first-child)]:mt-6", props.className)}
-    >
+    <p {...props} ref={ref} className={cn("leading-7", props.className)}>
       {props.children}
     </p>
   );
@@ -199,8 +195,10 @@ const InlineCode = forwardRef<
       {...props}
       ref={ref}
       className={cn(
-        "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+        "relative bg-muted font-mono text-sm",
         props.className,
+        // If the code isn't inside a language block, add some padding
+        { "px-[0.3rem] py-[0.2rem] font-semibold rounded": !props.className?.includes("language-")}
       )}
     >
       {props.children}
@@ -223,7 +221,7 @@ const UnorderedList = forwardRef<
     <ul
       {...props}
       ref={ref}
-      className={cn("my-6 ml-6 list-disc [&>li]:mt-2", props.className)}
+      className={cn("my-0 ml-6 list-disc [&>li]:mt-2", props.className)}
     >
       {props.children}
     </ul>
@@ -241,7 +239,7 @@ const OrderedList = forwardRef<
     <ol
       {...props}
       ref={ref}
-      className={cn("my-6 ml-6 list-decimal [&>li]:mt-2", props.className)}
+      className={cn("my-0 ml-6 list-decimal [&>li]:mt-2", props.className)}
     >
       {props.children}
     </ol>
@@ -286,7 +284,10 @@ const MarkdownLink = forwardRef<
       {...props}
       ref={ref}
       href={props.href!}
-      className={cn("text-primary underline underline-offset-4", props.className)}
+      className={cn(
+        "text-primary underline underline-offset-4",
+        props.className,
+      )}
     >
       {props.children}
     </Link>
@@ -296,38 +297,83 @@ const MarkdownLink = forwardRef<
 MarkdownLink.displayName = "MarkdownLink";
 export { MarkdownLink };
 
-// const Table = forwardRef<
-//   HTMLTableElement,
-//   React.HTMLAttributes<HTMLTableElement>
-// >((props, ref) => {
-//   return (
-//     <table
-//       {...props}
-//       ref={ref}
-//       className={cn("w-full border-collapse table-auto", props.className)}
-//     >
-//       {props.children}
-//     </table>
-//   );
-// });
+const Table = forwardRef<
+  HTMLTableElement,
+  React.HTMLAttributes<HTMLTableElement>
+>((props, ref) => {
+  return (
+    <table
+      {...props}
+      ref={ref}
+      className={cn("w-full border-collapse table-auto", props.className)}
+    >
+      {props.children}
+    </table>
+  );
+});
 
-// Table.displayName = "Table";
-// export { Table };
+Table.displayName = "Table";
+export { Table };
 
-// const Tr = forwardRef<
-//   HTMLTableRowElement,
-//   React.HTMLAttributes<HTMLTableRowElement>
-// >((props, ref) => {
-//   return (
-//     <tr
-//       {...props}
-//       ref={ref}
-//       className={cn("m-0 border-t p-0 even:bg-muted", props.className)}
-//     >
-//       {props.children}
-//     </tr>
-//   );
-// });
+const Tr = forwardRef<
+  HTMLTableRowElement,
+  React.HTMLAttributes<HTMLTableRowElement>
+>((props, ref) => {
+  return (
+    <tr
+      {...props}
+      ref={ref}
+      className={cn(
+        "m-0 border-t border-b py-14",
+        props.className,
+      )}
+    >
+      {props.children}
+    </tr>
+  );
+});
 
-// Tr.displayName = "Tr";
-// export { Tr };
+Tr.displayName = "Tr";
+export { Tr };
+
+const Th = forwardRef<
+  HTMLTableCellElement,
+  React.HTMLAttributes<HTMLTableCellElement>
+>((props, ref) => {
+  return (
+    <th
+      {...props}
+      ref={ref}
+      className={cn(
+        "border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
+        props.className,
+      )}
+    >
+      {props.children}
+    </th>
+  );
+});
+
+Th.displayName = "Th";
+export { Th };
+
+const Td = forwardRef<
+  HTMLTableCellElement,
+  React.HTMLAttributes<HTMLTableCellElement>
+>((props, ref) => {
+  return (
+    <td
+      {...props}
+      ref={ref}
+      className={cn(
+        "border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right",
+        props.className,
+      )}
+    >
+      {props.children}
+    </td>
+  );
+});
+
+Td.displayName = "Td";
+export { Td };

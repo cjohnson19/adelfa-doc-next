@@ -4,7 +4,7 @@ import { Check, Copy } from "lucide-react";
 import Prism from "prismjs";
 import "prismjs/components/prism-bash.min";
 import "prismjs/components/prism-lisp.min";
-import "prismjs/themes/prism-tomorrow.css";
+import "prism-theme-night-owl";
 
 Prism.languages["adelfa-signature"] = {
   keyword: /\b(?:type)\b/,
@@ -49,11 +49,12 @@ import copy from "copy-to-clipboard";
 
 export function CodeBlock({
   children,
-  "data-language": language,
+  language,
 }: {
   children: string;
-  "data-language": string;
+  language: string;
 }) {
+  const childTrimmed = children.trim();
   const ref = React.useRef<any>(null);
   const [copied, setCopied] = React.useState(false);
 
@@ -65,16 +66,16 @@ export function CodeBlock({
 
   React.useEffect(() => {
     if (ref.current) Prism.highlightElement(ref.current, false);
-  }, [children]);
+  }, [childTrimmed]);
 
   if (!language) language = "adelfa";
 
   return (
     <div className="code" aria-live="polite">
       <pre ref={ref} className={`language-${language}`}>
-        {children}
+        {childTrimmed}
       </pre>
-      <div className="absolute top-1 right-1 bg-transparent text-sm p-0 m-0">
+      <div className="absolute top-4 right-2 bg-transparent text-sm p-0 m-0">
         <Button
           size="icon"
           aria-label="Copy code"

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import "prismjs";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import SideNav from "@/components/ui/side-nav/side-nav";
 import Header from "@/components/ui/header/header";
 import React from "react";
+import 'katex/dist/katex.min.css';
+import ScrollToTop from "@/components/scroll-to-top";
 
 const inter = Inter({ subsets: ["latin", "greek"], variable: "--font-sans" });
 
@@ -53,6 +54,7 @@ export default function RootLayout({
               <main className="mt-8 flex flex-1 items-center flex-col gap-4 p-8 lg:gap-6 lg:p-6">
                 <div className="flex w-full md:max-w-l lg:max-w-3xl flex-col gap-4 lg:gap-6 lg:p-6">
                   {children}
+                  <ScrollToTop />
                 </div>
               </main>
             </div>
